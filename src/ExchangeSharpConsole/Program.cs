@@ -35,7 +35,8 @@ namespace ExchangeSharpConsole
 			typeof(TradeHistoryOption),
 			typeof(WebSocketsOrderbookOption),
 			typeof(WebSocketsTickersOption),
-			typeof(WebSocketsTradesOption)
+			typeof(WebSocketsTradesOption),
+			typeof(MarketMakingOption)
 		};
 
 		public Program()
@@ -113,5 +114,6 @@ namespace ExchangeSharpConsole
 				}
 			}
 		}
+
 	}
 }

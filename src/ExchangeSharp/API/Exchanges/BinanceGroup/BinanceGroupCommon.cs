@@ -604,7 +604,7 @@ namespace ExchangeSharp.BinanceGroup
 		/// <summary>Process the trades that executed as part of your order and sum the fees.</summary>
 		/// <param name="feesToken">The trades executed for a specific currency pair.</param>
 		/// <param name="result">The result object to append to.</param>
-		private static void ParseFees(JToken feesToken, ExchangeOrderResult result)
+		protected static void ParseFees(JToken feesToken, ExchangeOrderResult result)
 		{
 			var tradesInOrder = feesToken.Where(x => x["orderId"].ToStringInvariant() == result.OrderId);
 
@@ -639,7 +639,7 @@ namespace ExchangeSharp.BinanceGroup
 			return orders;
 		}
 
-		private async Task<IEnumerable<ExchangeOrderResult>> GetCompletedOrdersForAllSymbolsAsync(DateTime? afterDate)
+		protected async Task<IEnumerable<ExchangeOrderResult>> GetCompletedOrdersForAllSymbolsAsync(DateTime? afterDate)
 		{
 			// TODO: This is a HACK, Binance API needs to add a single API call to get all orders for all symbols, terrible...
 			List<ExchangeOrderResult> orders = new List<ExchangeOrderResult>();
@@ -873,7 +873,7 @@ namespace ExchangeSharp.BinanceGroup
 			return await this.ParseTickerAsync(token, marketSymbol, "a", "b", "c", "v", "q", "E", TimestampType.UnixMilliseconds);
 		}
 
-		private ExchangeOrderResult ParseOrder(JToken token)
+		protected ExchangeOrderResult ParseOrder(JToken token)
 		{
 			/*
               "symbol": "IOTABTC",
@@ -937,7 +937,7 @@ namespace ExchangeSharp.BinanceGroup
 			return result;
 		}
 
-		private ExchangeAPIOrderResult ParseExchangeAPIOrderResult(string status, decimal amountFilled)
+		protected ExchangeAPIOrderResult ParseExchangeAPIOrderResult(string status, decimal amountFilled)
 		{
 			switch (status)
 			{

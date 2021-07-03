@@ -12,10 +12,10 @@ namespace ExchangeSharpConsole.Options
 	{
 		public override async Task RunCommand()
 		{
-			using var api = ExchangeAPI.GetExchangeAPI(ExchangeName.Kraken);
-			var ticker = await api.GetTickerAsync("XXBTZUSD");
+			using var api = ExchangeAPI.GetExchangeAPI(ExchangeName.TRBinance);
+			var ticker = await api.GetTickerAsync("USDT_TRY");
 
-			Console.WriteLine("On the Kraken exchange, 1 bitcoin is worth {0} USD.", ticker.Bid);
+			Console.WriteLine("On the Kraken exchange, 1 {1} is worth {0} {2}.", ticker.Last, "USD", "TRY");
 
 			try
 			{
@@ -28,18 +28,25 @@ namespace ExchangeSharpConsole.Options
 					"Invalid key file.\n" +
 					"Try generating a key file with the \"keys\" utility."
 				);
+
 				Environment.Exit(Program.ExitCodeError);
 				return;
 			}
 
-			// place limit order for 0.01 bitcoin at ticker.Ask USD
+			//test:
+
+			var orderBook = await api.GetCompletedOrderDetailsAsync("USDT_TRY", new DateTime(2021, 05, 18), false);
+
+			//place limit order for 0.01 bitcoin at ticker.Ask USD
+
 			var result = await api.PlaceOrderAsync(new ExchangeOrderRequest
 			{
-				Amount = 0.01m,
-				IsBuy = true,
-				Price = ticker.Ask,
-				MarketSymbol = "XXBTZUSD"
-			});
+				Amount = 10m,
+				IsBuy = false,
+				Price = ticker.Ask + 0.1m,
+				MarketSymbol = "USDT_TRY"
+			},
+			false);
 
 			// Kraken is a bit funny in that they don't return the order details in the initial request, so you have to follow up with an order details request
 			//  if you want to know more info about the order - most other exchanges don't return until they have the order details for you.
@@ -47,11 +54,11 @@ namespace ExchangeSharpConsole.Options
 			//  their house in order.
 			await Task.Delay(500);
 
-			result = await api.GetOrderDetailsAsync(result.OrderId);
+			result = await api.GetOrderDetailsAsync(result.OrderId, "USDT_TRY");
 
 			Console.WriteLine(
-				"Placed an order on Kraken for 0.01 bitcoin at {0} USD. Status is {1}. Order id is {2}.",
-				ticker.Ask, result.Result, result.OrderId
+				"Placed an order on Bincance for 0.01 bitcoin at {0} USD. Status is {1}. Order id is {2}.",
+				result.Price, result.Result, result.OrderId
 			);
 		}
 
