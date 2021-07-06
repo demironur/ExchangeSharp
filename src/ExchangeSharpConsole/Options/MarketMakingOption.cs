@@ -13,14 +13,21 @@ namespace ExchangeSharpConsole.Options
 	public class MarketMakingOption : BaseOption, IOptionWithKey
 	{
 		public IExchangeAPI api { get; set; } = ExchangeAPI.GetExchangeAPI(ExchangeName.TRBinance);
-		public string NormalizedMarketSymbol { get; set; } = "USDTTRY";
-		public string MarketSymbol { get; set; } = "USDT_TRY";
 		public string KeyPath { get; set; }
-		public decimal OrderCancelLevel { get; set; } = 0.006m;
-		public int OrderDivideCount { get; set; } = 5;
-		public decimal OrderStepSize { get; set; } = 0.001m;
-		public decimal OrderMinSpread { get; set; } = 0.001m;
-		public decimal OrderAmount { get; set; } = 10m;
+		//public string NormalizedMarketSymbol { get; set; } = "USDTTRY";
+		//public string MarketSymbol { get; set; } = "USDT_TRY";
+		//public decimal OrderCancelLevel { get; set; } = 0.007m;
+		//public int OrderDivideCount { get; set; } = 5;
+		//public decimal OrderStepSize { get; set; } = 0.001m;
+		//public decimal OrderMinSpread { get; set; } = 0.002m;
+		//public decimal OrderAmount { get; set; } = 10m;
+		public string NormalizedMarketSymbol { get; set; } = "BUSDTRY";
+		public string MarketSymbol { get; set; } = "BUSD_TRY";
+		public decimal OrderCancelLevel { get; set; } = 0.01m;
+		public int OrderDivideCount { get; set; } = 1;
+		public decimal OrderStepSize { get; set; } = 0.01m;
+		public decimal OrderMinSpread { get; set; } = 0.0m;
+		public decimal OrderAmount { get; set; } = 100m;
 
 		public override async Task RunCommand()
 		{
@@ -102,8 +109,7 @@ namespace ExchangeSharpConsole.Options
 				IsBuy = isBuy,
 				Price = price,
 				MarketSymbol = MarketSymbol
-			},
-				false);
+			});
 
 			//return result;
 		}

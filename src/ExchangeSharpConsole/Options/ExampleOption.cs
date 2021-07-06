@@ -35,7 +35,7 @@ namespace ExchangeSharpConsole.Options
 
 			//test:
 
-			var orderBook = await api.GetCompletedOrderDetailsAsync("USDT_TRY", new DateTime(2021, 05, 18), false);
+			var orderBook = await api.GetCompletedOrderDetailsAsync("USDT_TRY", new DateTime(2021, 05, 18));
 
 			//place limit order for 0.01 bitcoin at ticker.Ask USD
 
@@ -45,8 +45,7 @@ namespace ExchangeSharpConsole.Options
 				IsBuy = false,
 				Price = ticker.Ask + 0.1m,
 				MarketSymbol = "USDT_TRY"
-			},
-			false);
+			});
 
 			// Kraken is a bit funny in that they don't return the order details in the initial request, so you have to follow up with an order details request
 			//  if you want to know more info about the order - most other exchanges don't return until they have the order details for you.

@@ -20,8 +20,8 @@ namespace ExchangeSharp
 {
 	public sealed class ExchangeTRBinanceAPI : BinanceGroupCommon
 	{
-		public override string BaseUrl { get; set; } = "https://api.binance.cc/api/v3";
-		public override string BaseUrlWebSocket { get; set; } = "wss://stream.binance.cc";
+		public override string BaseUrl { get; set; } = "https://api.binance.me/api/v3";
+		public override string BaseUrlWebSocket { get; set; } = "wss://www.trbinance.com";//wss://stream-cloud.trbinance.com
 		public override string BaseUrlPrivate { get; set; } = "https://www.trbinance.com";
 		public override string WithdrawalUrlPrivate { get; set; } = "https://api.binance.com/api/v3";
 		public override string BaseWebUrl { get; set; } = "https://www.trbinance.com";
